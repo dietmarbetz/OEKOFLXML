@@ -49,7 +49,8 @@
     <xs:simpleType name="Flaechenwert">
         <xs:annotation>
             <xs:documentation>
-                Flächenwert als Dezimalzahl. Maximal 4 Nachkommastellen, mindestens 0.
+                Flächenwert ist die Größe einer Fläche als Dezimalzahl. Maximal 4
+                Nachkommastellen, mindestens 0.
                 Dezimaltrenner ist der Punkt (.). Komma ist nicht erlaubt.
             </xs:documentation>
         </xs:annotation>
@@ -119,7 +120,13 @@
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="Bezeichnung" type="xs:string"/>
+    <xs:element name="Bezeichnung" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>
+                Bezeichnung meint die Unternehmensbezeichnung des Betriebs.
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
     <xs:element name="Strasse" type="xs:string"/>
     <xs:element name="Hausnummer" type="xs:string"/>
     <xs:element name="Plz" type="xs:string"/>
@@ -146,7 +153,13 @@
                 <xs:element ref="FLIK" minOccurs="1" maxOccurs="1"/>
                 <xs:element ref="Flurstueckskennung" minOccurs="1" maxOccurs="1"/>
                 <xs:element ref="Bezeichnung" minOccurs="1" maxOccurs="1"/>
-                <xs:element ref="Nummer" minOccurs="1" maxOccurs="1"/>
+                <xs:element ref="Nummer" minOccurs="1" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Nummer ist idR die laufende Nummer im Flächenverzeichnis
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
                 <xs:element ref="Gesamtflaeche" minOccurs="1" maxOccurs="1"/>
                 <xs:element ref="Geometrie" minOccurs="1" maxOccurs="1"/>
                 <xs:element ref="Nutzungen" minOccurs="0" maxOccurs="unbounded"/>
