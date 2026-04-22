@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Betriebe>
+    <Betrieb>
+        <Bezeichnung/>
+        <Strasse/>
+        <Hausnummer/>
+        <Plz/>
+        <Ort/>
+        <INVEKOSNR/>
+        <Feldstuecke Anzahl="1">
+            <Feldstueck>
+                <FLIK/>
+                <Flurstueckskennung/>
+                <Bezeichnung/>
+                <Nummer/>
+                <Gesamtflaeche Einheit="m2"/>
+                <Geometrie srid="4326">MULTIPOLYGON(((11.6 48.1, 11.61 48.1, 11.61 48.11, 11.6 48.11, 11.6 48.1)))</Geometrie>
+                <Nutzungen Anzahl="1">
+                    <Nutzung>
+                        <NutzungsCode/>
+                        <NutzungBezeichnung/>
+                        <Flaeche Einheit="m2"/>
+                        <Flurstueckskennung/>
+                    </Nutzung>
+                </Nutzungen>
+                <AnzahlBaeume/>
+                <Oekoflaeche/>
+            </Feldstueck>
+        </Feldstuecke>
+    </Betrieb>
+</Betriebe>

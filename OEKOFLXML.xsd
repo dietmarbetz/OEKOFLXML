@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+    <xs:annotation>
+        <xs:documentation xml:lang="de">
+            OEKOFLXML — Austauschformat für landwirtschaftliche Flächendaten von
+            Öko-Betrieben im InVeKos-System
+
+            Fachlicher Zweck:
+            Dieses Schema definiert ein standardisiertes XML-Austauschformat für Feldstücksdaten
+            im Rahmen des Integrierten Verwaltungs- und Kontrollsystems (InVeKo) der deutschen
+            Agrarverwaltung. Es ermöglicht den strukturierten Austausch von
+            Feldstücken (Flurstücken), Flächennutzungen und Geometrien zwischen
+            Agrarverwaltungssystemen, Landwirtschaftsbetrieben und Öko-Kontrollstellen.
+
+            Fachlicher Geltungsbereich:
+            - Betriebe mit InVeKo-Betriebsnummer (INVEKOSNR)
+            - Feldstücke mit FLIK-Kennung, Gesamtfläche und Geometrie (WKT MULTIPOLYGON)
+            - Flächennutzungen gemäß FNN-Codeliste (Nutzungscode, Bezeichnung, Fläche)
+            - Bundeslandspezifische Angaben: Flurstueckskennung, Streuobstbäume (AnzahlBaeume),
+              Ökoflächen-Kennzeichnung (Oekoflaeche)
+
+            Version:    0.1.0
+            Autor:      D. Betz, dietmar.betz@abcert.de
+            Datum:      2026-04-22
+
+            Kodierung:
+            XML-Instanzdokumente müssen in UTF-8 kodiert sein. Die Kodierungsangabe ist in der
+            XML-Deklaration des Instanzdokuments zu setzen:
+            &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+        </xs:documentation>
+        <xs:appinfo>
+            <version>0.1.0</version>
+            <date>2026-04-22</date>
+            <encoding>UTF-8</encoding>
+        </xs:appinfo>
+    </xs:annotation>
+
+    <xs:simpleType name="Flaecheneinheit">
+        <xs:annotation>
+            <xs:documentation>Erlaubte Einheiten für Flächenangaben</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="m2"/>
+            <xs:enumeration value="ha"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="Flaechenwert">
+        <xs:annotation>
+            <xs:documentation>
+                Flächenwert als Dezimalzahl. Maximal 4 Nachkommastellen, mindestens 0.
+                Dezimaltrenner ist der Punkt (.). Komma ist nicht erlaubt.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:decimal">
+            <xs:fractionDigits value="4"/>
+            <xs:minInclusive value="0"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="INVEKOSNRType">
+        <xs:annotation>
+            <xs:documentation>
+                InVeKo-Betriebsnummer (Schlüsselnummer). Exakt 15 Ziffern, bundeslandspezifisch belegt.
+                Nummer beginnt für Deutschland mit 276
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[0-9]{15}"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="FLIKType">
+        <xs:annotation>
+            <xs:documentation>
+                Feldstück-Land-Identifikations-Kennung (FLIK).
+                Format: DE + Bundeslandkürzel (2 Großbuchstaben) + 12 Ziffern, gesamt 16 Zeichen.
+                Gültige Bundeslandkürzel: BB, BE, BW, BY, HB, HE, HH, MV, NI, NW, RP, SH, SL, SN, ST, TH.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="DE[A-Z]{2}[0-9]{12}"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="MultiPolygonWKT">
+        <xs:annotation>
+            <xs:documentation>
+                MULTIPOLYGON-Element als WKT (Well-Known Text).
+                Unterstützt mehrere Polygone und Löcher (innere Ringe).
+                Koordinaten können negativ sein (z.B. westliche Längengrade).
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="MULTIPOLYGON\s*\(\s*\(\s*\([-0-9\.\s,]+\)(\s*,\s*\([-0-9\.\s,]+\))*\s*\)(\s*,\s*\(\s*\([-0-9\.\s,]+\)(\s*,\s*\([-0-9\.\s,]+\))*\s*\))*\s*\)"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:element name="Betriebe">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="Betrieb" minOccurs="1" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Betrieb">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="Bezeichnung" minOccurs="1" maxOccurs="1"/>
+                <xs:element ref="Strasse" minOccurs="0" maxOccurs="1"/>
+                <xs:element ref="Hausnummer" minOccurs="0" maxOccurs="1"/>
+                <xs:element ref="Plz" minOccurs="0" maxOccurs="1"/>
+                <xs:element ref="Ort" minOccurs="0" maxOccurs="1"/>
+                <xs:element ref="INVEKOSNR" minOccurs="1" maxOccurs="1"/>
+                <xs:element ref="Feldstuecke" minOccurs="1" maxOccurs="1"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Bezeichnung" type="xs:string"/>
+    <xs:element name="Strasse" type="xs:string"/>
+    <xs:element name="Hausnummer" type="xs:string"/>
+    <xs:element name="Plz" type="xs:string"/>
+    <xs:element name="Ort" type="xs:string"/>
+    <xs:element name="INVEKOSNR" type="INVEKOSNRType"/>
+
+    <xs:element name="Feldstuecke">
+        <xs:annotation>
+            <xs:documentation>
+                Liste der Feldstücke, die ein Betrieb bewirtschaftet.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="Feldstueck" minOccurs="1" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="Anzahl" use="optional" type="xs:integer"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Feldstueck">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="FLIK" minOccurs="1" maxOccurs="1"/>
+                <xs:element ref="Flurstueckskennung" minOccurs="1" maxOccurs="1"/>
+                <xs:element ref="Bezeichnung" minOccurs="1" maxOccurs="1"/>
+                <xs:element ref="Nummer" minOccurs="1" maxOccurs="1"/>
+                <xs:element ref="Gesamtflaeche" minOccurs="1" maxOccurs="1"/>
+                <xs:element ref="Geometrie" minOccurs="1" maxOccurs="1"/>
+                <xs:element ref="Nutzungen" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element ref="AnzahlBaeume" minOccurs="0" maxOccurs="1"/>
+                <xs:element ref="Oekoflaeche" minOccurs="0" maxOccurs="1"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="FLIK" type="FLIKType"/>
+    <xs:element name="Nummer" type="xs:string"/>
+
+    <xs:element name="Gesamtflaeche">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="Flaechenwert">
+                    <xs:attribute name="Einheit" type="Flaecheneinheit" use="required" default="m2"/>
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Geometrie">
+        <xs:annotation>
+            <xs:documentation>
+                Umrisse der Fläche als MULTIPOLYGON in WKT.
+                srid gibt das Koordinatensystem an.
+                Gängige Werte: 4326 (WGS84), 25832 (UTM Zone 32N / ETRS89, DE-Standard).
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="MultiPolygonWKT">
+                    <xs:attribute name="srid" type="xs:positiveInteger" use="required"/>
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Nutzungen">
+        <xs:annotation>
+            <xs:documentation>
+                Liste der angebauten Nutzungen auf einem Feldstück.
+                Mehrere Nutzungen auf einem Feldstück entsprechen Teilstücken.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="Nutzung" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="Anzahl" use="optional"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Nutzung">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="NutzungsCode" minOccurs="1" maxOccurs="1"/>
+                <xs:element ref="NutzungBezeichnung" minOccurs="1" maxOccurs="1"/>
+                <xs:element ref="Flaeche" minOccurs="1" maxOccurs="1"/>
+                <xs:element ref="Flurstueckskennung" minOccurs="0" maxOccurs="1"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="NutzungsCode" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>FNN-Code der Nutzung</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+
+    <xs:element name="NutzungBezeichnung" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>Bezeichnung der Nutzung gemäß FNN-Codeliste</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+
+    <xs:element name="Flaeche">
+        <xs:annotation>
+            <xs:documentation>
+                Größe der Teilfläche. Einheit ist anzugeben; Standard ist m2.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="Flaechenwert">
+                    <xs:attribute name="Einheit" type="Flaecheneinheit" use="required"/>
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="AnzahlBaeume" type="xs:integer">
+        <xs:annotation>
+            <xs:documentation>
+                Anzahl der Streuobstbäume auf dem Feldstück.
+                Wird nur in einigen Bundesländern erfasst.
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+
+    <xs:element name="Oekoflaeche" type="xs:boolean">
+        <xs:annotation>
+            <xs:documentation>
+                Marker, ob das Feldstück als Ökofläche im InVeKo-System verwaltet wird.
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+
+    <xs:element name="Flurstueckskennung" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>
+                Feldstücks- oder Teilflächenkennung, i.d.R. Teil der FLIK.
+                Wird nicht in allen Bundesländern verwendet.
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+
+</xs:schema>
