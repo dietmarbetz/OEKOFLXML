@@ -1,6 +1,7 @@
 # OEKOFLXML
 
-**Austauschformat für landwirtschaftliche Flächendaten von Öko-Betrieben im InVeKo-System**
+**Austauschformat für landwirtschaftliche Flächendaten von Öko-Betrieben aus einem 
+InVeKo-System**
 
 Version 0.1.0 — D. Betz, dietmar.betz@abcert.de
 
@@ -14,9 +15,18 @@ OEKOFLXML definiert ein standardisiertes XML-Austauschformat für Feldstücksdat
 Es ermöglicht den strukturierten Austausch von Feldstücken (Flurstücken), Flächennutzungen und
 Geometrien zwischen Agrarverwaltungssystemen, Landwirtschaftsbetrieben und Öko-Kontrollstellen.
 
+Der Austausch von Flächendaten erfolgt als Export aus dem Agrarverwaltungssystem im 
+OEKOFLXML Format und anschließender Übertragung an den Empfänger 
+Landwirtschaftzlicher Betrieb und/oder Öko-Kontrollstelle.
+
+Das Ziel, das mit dem standardisierten Austauschformat verfolgt wird ist die Nutzung 
+der Flächendaten aus dem Agrarverwaltungssystem durch die Öko-Kontrollstellen für 
+die Zertifizierung nach der EU-Öko-Verordnung.
+
 ## Geltungsbereich
 
-- Betriebe mit InVeKo-Betriebsnummer (INVEKOSNR)
+- Landwirtschaftliche Betriebe, die dem Öko-Kontrollverfahren unterstehen
+- Betriebe mit InVeKos-Betriebsnummer (INVEKOSNR)
 - Feldstücke mit FLIK-Kennung, Gesamtfläche und Geometrie (WKT MULTIPOLYGON)
 - Flächennutzungen gemäß FNN-Codeliste (Nutzungscode, Bezeichnung, Fläche)
 - Bundeslandspezifische Angaben: Flurstueckskennung, Streuobstbäume, Ökoflächen-Kennzeichnung
@@ -63,17 +73,17 @@ Betriebe                        (1..n Betriebe)
 
 ### Feldstueck
 
-| Feld | Pflicht | Beschreibung |
-|---|---|---|
+| Feld | Pflicht | Beschreibung                                                                              |
+|---|---|-------------------------------------------------------------------------------------------|
 | `FLIK` | Ja | Feldstück-Land-Identifikations-Kennung: `DE` + 2-Buchstaben-Bundeslandkürzel + 12 Ziffern |
-| `Flurstueckskennung` | Ja | Kurzkennung des Feldstücks, i.d.R. Teil der FLIK (bundeslandspezifisch) |
-| `Bezeichnung` | Ja | Bezeichnung des Feldstücks |
-| `Nummer` | Ja | Feldstücksnummer |
-| `Gesamtflaeche` | Ja | Gesamtfläche in m² oder ha, max. 4 Nachkommastellen |
-| `Geometrie` | Ja | Umriss als WKT MULTIPOLYGON mit Pflichtattribut `srid` |
-| `Nutzungen` | Nein | Liste der Flächennutzungen (Teilstücke) |
-| `AnzahlBaeume` | Nein | Anzahl Streuobstbäume (nur in einigen Bundesländern) |
-| `Oekoflaeche` | Nein | `true`/`false` — Ökoflächen-Kennzeichnung im InVeKo |
+| `Flurstueckskennung` | Ja | Kurzkennung des Feldstücks, i.d.R. Teil der FLIK (bundeslandspezifisch)                   |
+| `Bezeichnung` | Ja | Bezeichnung des Feldstücks                                                                |
+| `Nummer` | Ja | Feldstücksnummer                                                                          |
+| `Gesamtflaeche` | Ja | Gesamtfläche in m² oder ha, max. 4 Nachkommastellen                                       |
+| `Geometrie` | Ja | Umriss als WKT MULTIPOLYGON mit Pflichtattribut `srid`                                    |
+| `Nutzungen` | Nein | Liste der Flächennutzungen (Teilstücke)                                                   |
+| `AnzahlBaeume` | Nein | Anzahl Streuobstbäume (nur in einigen Bundesländern)                                      |
+| `Oekoflaeche` | Nein | `true`/`false` — Ökoflächen-Kennzeichnung im InVeKoS                                      |
 
 ### Nutzung
 
