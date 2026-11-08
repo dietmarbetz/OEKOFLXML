@@ -52,6 +52,6 @@ Korrekturen gegenüber dem ersten, unveröffentlichten Entwurf:
 - `OEKOFLXML.xml`: `Geometrie/@srid` und WKT-Textinhalt ergänzt.
 - `OEKOFLXML.xml`: `NutzungsCode` und `NutzungBezeichnung` korrigiert (waren `Code` und `Bezeichnung`).
 
-[Unreleased]: https://github.com/db4711/OEKOFLXML/compare/v0.2.0...HEAD
-[0.2.0]: https://github.com/db4711/OEKOFLXML/compare/v0.1.0...v0.2.0
-[0.1.0]: https://github.com/db4711/OEKOFLXML/releases/tag/v0.1.0
+[Unreleased]: https://github.com/dietmarbetz/OEKOFLXML/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/dietmarbetz/OEKOFLXML/compare/v0.1.0...v0.2.0
+[0.1.0]: https://github.com/dietmarbetz/OEKOFLXML/releases/tag/v0.1.0
