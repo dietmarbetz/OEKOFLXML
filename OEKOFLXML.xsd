@@ -30,9 +30,9 @@
             - Bundeslandspezifische Angaben: Flurstueckskennung, Streuobstbäume (AnzahlBaeume),
               Ökoflächen-Kennzeichnung (Oekoflaeche)
 
-            Version:    0.1.0
+            Version:    0.2.0
             Autor:      D. Betz, dietmar.betz@abcert.de
-            Datum:      2026-04-22
+            Datum:      2026-11-08
 
             Kodierung:
             XML-Instanzdokumente müssen in UTF-8 kodiert sein. Die Kodierungsangabe ist in der
@@ -40,8 +40,8 @@
             &lt;?xml version="1.0" encoding="UTF-8"?&gt;
         </xs:documentation>
         <xs:appinfo>
-            <version>0.1.0</version>
-            <date>2026-04-22</date>
+            <version>0.2.0</version>
+            <date>2026-11-08</date>
             <encoding>UTF-8</encoding>
         </xs:appinfo>
     </xs:annotation>

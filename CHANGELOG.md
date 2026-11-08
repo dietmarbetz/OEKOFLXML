@@ -7,6 +7,8 @@ und dieses Projekt hält sich an [Semantic Versioning](https://semver.org/lang/d
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-11-08
+
 ### Geändert
 - `Feldstueck/Flurstueckskennung` ist optional (`minOccurs="0"`, vorher Pflicht), da nur einige Bundesländer zusätzlich zur FLIK Flurstückskennungen führen.
 - `Feldstueck/Flurstueckskennung`: Annotation am Element ergänzt; die Kennung kann angegeben werden, sofern sie vorhanden ist.
@@ -50,5 +52,6 @@ Korrekturen gegenüber dem ersten, unveröffentlichten Entwurf:
 - `OEKOFLXML.xml`: `Geometrie/@srid` und WKT-Textinhalt ergänzt.
 - `OEKOFLXML.xml`: `NutzungsCode` und `NutzungBezeichnung` korrigiert (waren `Code` und `Bezeichnung`).
 
-[Unreleased]: https://github.com/db4711/OEKOFLXML/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/db4711/OEKOFLXML/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/db4711/OEKOFLXML/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/db4711/OEKOFLXML/releases/tag/v0.1.0

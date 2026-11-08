@@ -3,7 +3,7 @@
 **Austauschformat für landwirtschaftliche Flächendaten von Öko-Betrieben aus einem 
 InVeKo-System**
 
-Version 0.1.0 — D. Betz, dietmar.betz@abcert.de
+Version 0.2.0 — D. Betz, dietmar.betz@abcert.de
 
 ---
 
