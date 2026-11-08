@@ -28,7 +28,7 @@ die Zertifizierung nach der EU-Öko-Verordnung.
 - Landwirtschaftliche Betriebe, die dem Öko-Kontrollverfahren unterstehen
 - Betriebe mit InVeKos-Betriebsnummer (INVEKOSNR)
 - Feldstücke mit FLIK-Kennung, Gesamtfläche und Geometrie (WKT MULTIPOLYGON)
-- Flächennutzungen gemäß FNN-Codeliste (Nutzungscode, Bezeichnung, Fläche)
+- Flächennutzungen gemäß InVeKoS-NC-Liste (Nutzungscode, Bezeichnung, Fläche)
 - Bundeslandspezifische Angaben: Flurstueckskennung, Streuobstbäume, Ökoflächen-Kennzeichnung
 
 ---
@@ -51,7 +51,7 @@ Betriebe                        (1..n Betriebe)
         └── Feldstueck          FLIK, Bezeichnung, Nummer, Fläche, Geometrie
             ├── Geometrie       MULTIPOLYGON in WKT mit Koordinatensystem (srid)
             ├── Nutzungen       Flächennutzungen (optional, wiederholbar)
-            │   └── Nutzung     NutzungsCode (FNN), Bezeichnung, Fläche
+            │   └── Nutzung     NutzungsCode (InVeKoS-NC), Bezeichnung, Fläche
             ├── AnzahlBaeume    Streuobstbäume (bundeslandspezifisch, optional)
             └── Oekoflaeche     Ökoflächen-Marker im InVeKo (optional)
 ```
@@ -76,9 +76,9 @@ Betriebe                        (1..n Betriebe)
 | Feld | Pflicht | Beschreibung                                                                              |
 |---|---|-------------------------------------------------------------------------------------------|
 | `FLIK` | Ja | Feldstück-Land-Identifikations-Kennung: `DE` + 2-Buchstaben-Bundeslandkürzel + 12 Ziffern |
-| `Flurstueckskennung` | Ja | Kurzkennung des Feldstücks, i.d.R. Teil der FLIK (bundeslandspezifisch)                   |
-| `Bezeichnung` | Ja | Bezeichnung des Feldstücks                                                                |
-| `Nummer` | Ja | Feldstücksnummer                                                                          |
+| `Flurstueckskennung` | Nein | Kurzkennung des Feldstücks, i.d.R. Teil der FLIK; wird nur in einigen Bundesländern zusätzlich zur FLIK geführt |
+| `Bezeichnung` | Nein | Bezeichnung des Feldstücks; fehlt sie im Quellsystem, wird das Element weggelassen        |
+| `Nummer` | Nein | Feldstücksnummer, i.d.R. laufende Nummer im Flächenverzeichnis; fehlt sie, wird das Element weggelassen |
 | `Gesamtflaeche` | Ja | Gesamtfläche in m² oder ha, max. 4 Nachkommastellen                                       |
 | `Geometrie` | Ja | Umriss als WKT MULTIPOLYGON mit Pflichtattribut `srid`                                    |
 | `Nutzungen` | Nein | Liste der Flächennutzungen (Teilstücke)                                                   |
@@ -89,8 +89,8 @@ Betriebe                        (1..n Betriebe)
 
 | Feld | Pflicht | Beschreibung |
 |---|---|---|
-| `NutzungsCode` | Ja | FNN-Code der Nutzung |
-| `NutzungBezeichnung` | Ja | Bezeichnung gemäß FNN-Codeliste |
+| `NutzungsCode` | Ja | InVeKoS-NC der Nutzung |
+| `NutzungBezeichnung` | Ja | Bezeichnung gemäß InVeKoS-NC-Liste |
 | `Flaeche` | Ja | Teilfläche in m² oder ha, max. 4 Nachkommastellen |
 | `Flurstueckskennung` | Nein | Teilflächenkennung (bundeslandspezifisch) |
 

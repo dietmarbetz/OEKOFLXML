@@ -26,7 +26,7 @@
             - Landwirtschaftliche Betriebe, die dem Öko-Kontrollverfahren unterstehen
             - Betriebe mit InVeKo-Betriebsnummer (INVEKOSNR)
             - Feldstücke mit FLIK-Kennung, Gesamtfläche und Geometrie (WKT MULTIPOLYGON)
-            - Flächennutzungen gemäß FNN-Codeliste (Nutzungscode, Bezeichnung, Fläche)
+            - Flächennutzungen gemäß InVeKoS-NC-Liste (Nutzungscode, Bezeichnung, Fläche)
             - Bundeslandspezifische Angaben: Flurstueckskennung, Streuobstbäume (AnzahlBaeume),
               Ökoflächen-Kennzeichnung (Oekoflaeche)
 
@@ -133,7 +133,9 @@
     <xs:element name="Bezeichnung" type="xs:string">
         <xs:annotation>
             <xs:documentation>
-                Bezeichnung meint die Unternehmensbezeichnung des Betriebs.
+                Bezeichnung des Betriebs (Unternehmensbezeichnung) bzw. des
+                Feldstücks. Bedeutung und Pflichtigkeit ergeben sich aus der
+                jeweiligen Verwendungsstelle (Betrieb: Pflicht, Feldstueck: optional).
             </xs:documentation>
         </xs:annotation>
     </xs:element>
@@ -161,12 +163,34 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element ref="FLIK" minOccurs="1" maxOccurs="1"/>
-                <xs:element ref="Flurstueckskennung" minOccurs="1" maxOccurs="1"/>
-                <xs:element ref="Bezeichnung" minOccurs="1" maxOccurs="1"/>
-                <xs:element ref="Nummer" minOccurs="1" maxOccurs="1">
+                <xs:element ref="Flurstueckskennung" minOccurs="0" maxOccurs="1">
                     <xs:annotation>
                         <xs:documentation>
-                            Nummer ist idR die laufende Nummer im Flächenverzeichnis
+                            Einige Bundesländer führen neben der FLIK eine
+                            Flurstückskennung. Sofern die Kennung vorhanden ist,
+                            kann sie angegeben werden.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element ref="Bezeichnung" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Bezeichnung des Feldstücks, wie beispielsweise im
+                            Agrarantrag angegeben. In den Agrarverwaltungssystemen
+                            ist die Bezeichnung nicht zwingend. Ist im Quellsystem
+                            keine Bezeichnung erfasst, wird das Element weggelassen
+                            (kein leeres Element, kein xsi:nil).
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element ref="Nummer" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Nummer des Feldstücks, in der Regel die laufende Nummer im
+                            Flächenverzeichnis des Agrarantrags. In den Agrarverwaltungssystemen
+                            ist die Nummer nicht zwingend vorhanden. Ist im Quellsystem keine
+                            Nummer erfasst, wird das Element weggelassen (kein leeres Element,
+                            kein xsi:nil).
                         </xs:documentation>
                     </xs:annotation>
                 </xs:element>
@@ -186,7 +210,7 @@
         <xs:complexType>
             <xs:simpleContent>
                 <xs:extension base="Flaechenwert">
-                    <xs:attribute name="Einheit" type="Flaecheneinheit" use="required" default="m2"/>
+                    <xs:attribute name="Einheit" type="Flaecheneinheit" use="required"/>
                 </xs:extension>
             </xs:simpleContent>
         </xs:complexType>
@@ -237,13 +261,19 @@
 
     <xs:element name="NutzungsCode" type="xs:string">
         <xs:annotation>
-            <xs:documentation>FNN-Code der Nutzung</xs:documentation>
+            <xs:documentation>
+                Nutzungscode (NC) der Fläche gemäß InVeKoS-NC-Liste,
+                z. B. 115 für Winterweichweizen.
+            </xs:documentation>
         </xs:annotation>
     </xs:element>
 
     <xs:element name="NutzungBezeichnung" type="xs:string">
         <xs:annotation>
-            <xs:documentation>Bezeichnung der Nutzung gemäß FNN-Codeliste</xs:documentation>
+            <xs:documentation>
+                Bezeichnung der Nutzung gemäß InVeKoS-NC-Liste, passend zum
+                angegebenen NutzungsCode.
+            </xs:documentation>
         </xs:annotation>
     </xs:element>
 
